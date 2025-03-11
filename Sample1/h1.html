@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="productApp">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NURSERY SHOP</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<style>
+table {
+width: 50%; margin: 20px auto;
+border-collapse: collapse;
+}
+th, td {
+padding: 10px; text-align: left;
+border: 1px solid #ddd;
+}
+ 
+th {
+background-color: #4CAF50; color: white;
+}
+button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #3b82f6;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2563eb;
+        }
+</style>
+</head>
+<body ng-controller="ProductController">
+
+
+<div style="text-align: center;">
+<h1>NURSERY SHOP</h1>
+<label>Enter the Product Name:</label><br>
+<input type="text" ng-model="newProduct.name" placeholder=""><br><br>
+<label>Enter the Product Price:</label><br>
+<input type="number" ng-model="newProduct.price" placeholder=""><br><br>
+<button ng-click="addProduct()">Add Product</button>
+<br><br>
+<table ng-if="products.length > 0">
+<thead>
+<tr>
+<th>Name</th>
+<th>Price</th>
+<th>Remove</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="product in products">
+<td>{{ product.name }}</td>
+<td>Rs.{{ product.price }}</td>
+<td>><button a href="" ng-click="removeProduct($index)"> delete </a></button> </td>
+</tr>
+ 
+
+</tbody>
+</table>
+<p ng-if="products.length == 0">No products added yet. Please add a water product.</p>
+</div>
+<script>
+var app = angular.module('productApp', []); app.controller('ProductController', function($scope) {
+$scope.products = [];
+$scope.newProduct = {};
+$scope.addProduct = function() {
+if ($scope.newProduct.name && $scope.newProduct.price) {
+$scope.products.push({
+name: $scope.newProduct.name, price: $scope.newProduct.price
+});
+$scope.newProduct = {};
+}
+};
+$scope.removeProduct = function(index) {
+$scope.products.splice(index, 1);
+};
+});
+</script>
+</body>
+</html>
